@@ -6,6 +6,9 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { isAuthTrue } from "../redux/isAuth";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 
@@ -26,6 +29,16 @@ const Navbar = () => {
       await axios.get('/api/users/logout')
       console.log('logout successful');
       dispatch(isAuthTrue())
+      toast.success("user Logout Successfully",{
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      })
       router.push('/login')
     } catch (error) {
       console.log(error, 'logout function error');      
@@ -75,6 +88,18 @@ const Navbar = () => {
             <li onClick={logout} className="text-xl my-4 pl-3 cursor-pointer hover:bg-blue-700 text-white md:mx-5"><span>Logout</span></li>
             }
         </ul>
+        <ToastContainer 
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+        />
     </nav>
   )
 }

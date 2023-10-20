@@ -13,6 +13,7 @@ import { initialValues } from '@/utils/signupSchema'
 import axios from 'axios'
 import { useState } from 'react'
 import { app } from '@/utils/firebase_app'
+import { ToastContainer, toast } from 'react-toastify'
 
 
 const ClientSignupForm = () => {
@@ -24,8 +25,8 @@ const ClientSignupForm = () => {
     // upload image url to backend
     const signupFormSubmit = async (values) => {
         try {
+
             dispatch(isLoadingFalse())
-            console.log('signup form ');
             // Storage
             const fileAddress = new Date().getTime() + profilePic?.name
             // const snapshot = await uploadBytesResumable(fileRef, profilePic);
@@ -36,11 +37,29 @@ const ClientSignupForm = () => {
             const photoURL = await getDownloadURL(fileRef);
 
             const postResponse = await axios.post('http://localhost:3000/api/users/signup', { ...values, profile: photoURL })
-            console.log('post success', postResponse.data);
             router.push('/login')
+            toast.success("Signup Successfully",{
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                theme: "dark",
+            })
         } catch (error) {
-            console.log('post field', error.message);
             console.log('this is error::::: ',error);
+            toast.error(error.message||'something went wrong signup page',{
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                theme: "dark",
+            })
         }
         finally{
             dispatch(isLoadingTrue())
@@ -200,6 +219,18 @@ const ClientSignupForm = () => {
                         >
                             آیا قبلا حساب داشته اید
                         </Link>
+                        <ToastContainer 
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={true}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+                    />
                     </div>
                 </Form>
             </Formik>

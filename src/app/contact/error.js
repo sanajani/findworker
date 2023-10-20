@@ -1,10 +1,21 @@
 'use client'
 
 import { useEffect } from "react"
+import { ToastContainer, toast } from "react-toastify"
 
 const Error = ({error, reset}) => {
     useEffect(() => {
         console.log('this is error on contact page');
+        toast.error(error.message || 'this is error on contact page',{
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+        })
     }, [error])
 
     return(
@@ -13,6 +24,18 @@ const Error = ({error, reset}) => {
             <button onClick={() => reset()} type="button">
                 Try again
             </button>
+            <ToastContainer 
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={true}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+            />
         </div>
     )
 }

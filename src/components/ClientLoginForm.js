@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { isAuthFalse } from '../redux/isAuth'
-// import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 
@@ -21,9 +21,28 @@ const ClientLoginForm = () => {
             const res = await axios.post('http://localhost:3000/api/users/login', values);
                 dispatch(isAuthFalse())
                 router.push('/')
-            // }
+                toast.success("user Login Successfully",{
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "dark",
+                  })
         } catch (error) {
             console.log(error);
+            toast.error(error.message || 'Something went wrong in Login Process',{
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                theme: "dark",
+              })
         }
     }
     return (
@@ -49,6 +68,18 @@ const ClientLoginForm = () => {
                     <button type='submit' className='w-fit mb-4 bg-white px-8 py-2 text-sm md:text-base rounded-lg text-blue-500 md:font-bold tracking-wide'>وارد شدن</button>
                     <Link className='w-fit mb-4 px-8 border-b-2 rounded-lg text-white py-2 text-sm md:text-base md:font-bold tracking-wide' href='/signup'> ندارید Jobfinder آیا حساب </Link>
                 </div>
+                <ToastContainer 
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={true}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+                    />
             </Form>
         </Formik>
     )
