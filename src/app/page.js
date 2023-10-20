@@ -1,5 +1,5 @@
-import HomePageTable from "./components/HomePageTable"
-import SearchTable from "./components/SearchTable"
+import HomePageTable from "../components/HomePageTable"
+import SearchTable from "../components/SearchTable"
 
 
 export default function Home() {

@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import AboutUser from '../../components/AboutUser'
+import AboutUser from '../../../components/AboutUser'
 
 const Profile = () => {
     return (
@@ -9,6 +9,8 @@ const Profile = () => {
                 <div className=''>
                     <div className='bg-red-400 rounded-full relative md:h-56 md:w-56 h-28 w-28'>
                         <Image
+                            placeholder="blur"
+                            blurDataURL={'/profile.jpg'}
                             src='/profile.jpg'
                             alt='userProfile'
                             fill={true}
@@ -78,6 +80,8 @@ const Profile = () => {
                             alt='project number one'
                             fill={true}
                             className='object-cover'
+                            placeholder="blur"
+                            blurDataURL={'/five.jpg'}
                             />
                         </div>
                         <h1 className='font-semibold text-lg md:text-xl capitalize my-2 text-right font-persionFont'>نام پروژه</h1>
@@ -91,6 +95,8 @@ const Profile = () => {
                             alt='project number one'
                             fill={true}
                             className='object-cover'
+                            placeholder='blur'
+                            blurDataURL='/two.jpg'
                             />
                         </div>
                         <h1 className='font-semibold text-lg md:text-xl capitalize my-2 text-right font-persionFont'>نام پروژه</h1>
@@ -104,13 +110,13 @@ const Profile = () => {
                             alt='project number one'
                             fill={true}
                             className='object-cover'
+                            placeholder='blur'
+                            blurDataURL='/nine.jgp'
                             />
                         </div>
                         <h1 className='font-semibold text-lg md:text-xl capitalize my-2 text-right font-persionFont'>نام پروژه</h1>
                         <p className='text-right text-lg md:text-xl font-persionFont'>درمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات </p>
                     </div>
-
-
                 </div>
             </div>
         </main>

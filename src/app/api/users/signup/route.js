@@ -3,17 +3,15 @@ import UserModel from "@/models/userModel";
 import connectDB from "@/db/connection";
 import bcryptjs from 'bcryptjs';
 // signuproute
-connectDB()
 
 export const POST = async (request) => {
+    connectDB()
+
     const {name,lastName, username,password, job, experiance, firstPhoneNumber,secondNumber, profile, province, aboutuser} = await request.json();
-    console.log("name",name,"lastName",lastName, "username",username,"password",password, job, "experiance",experiance, firstPhoneNumber,secondNumber, profile, province, aboutuser);
 
     // if missed field then send an error experiance
     if (!name || !lastName || !username || !password || !job || !experiance || !firstPhoneNumber || !secondNumber || !profile || !province || !aboutuser) return NextResponse.json({message: "لطفا خانه های خالی را پور کنید"},{status: 401})
-    console.log(
-        {name,lastName, username,password, job, experiance, firstPhoneNumber,secondNumber, profile, province, aboutuser}
-    );
+
     try {
     // hash the password
     const hashPassword = await bcryptjs.hash(password, 12)
