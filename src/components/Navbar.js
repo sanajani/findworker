@@ -10,8 +10,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 
 
-
-
 const Navbar = () => {
   const router = useRouter();
   const [isMenuOpen,setIsMenuOpen] = useState(false)  
@@ -41,7 +39,17 @@ const Navbar = () => {
       })
       router.push('/login')
     } catch (error) {
-      console.log(error, 'logout function error');      
+      console.log(error, 'logout function error');  
+      toast.error("Something went wrong",{
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      })    
     }
     finally{
       setIsMenuOpen(false)
@@ -58,7 +66,8 @@ const Navbar = () => {
             }
             </>
         </div>
-        <ul className= {` top-[90px] sm:hidden py-6 -left-[0%] bg-blue-500 absolute w-full h-80 sm:overflow-hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} duration-300 ease-in-out`}>
+
+        <ul className= {`top-[90px] sm:hidden py-6 -left-[0%] bg-blue-500 absolute w-full h-80 sm:overflow-hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} duration-300 ease-in-out`}>
         <li><Link onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-xl my-4 pl-3 text-white border-b pb-3" href='/'>Home</Link></li>
         <li><Link onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-xl my-4 pl-3 text-white border-b pb-3" href='/about'>About</Link></li>
         <li><Link onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-xl my-4 pl-3 text-white border-b pb-3" href='/contact'>Contact</Link></li>
@@ -71,10 +80,9 @@ const Navbar = () => {
         :
         <li onClick={logout} className="text-xl my-4 pl-3 text-white border-b pb-3">Logout</li>
         }
-
-
         </ul>
-        <ul className='hidden overflow-hidden sm:flex md:min-w-fit sm:w-72 justify-between'>
+
+        <ul className='hidden overflow-hidden sm:flex md:min-w-fit sm:w-72 '>
             <li className="text-xl my-4 pl-3 text-white md:mx-5"><Link href='/'>Home</Link></li>
             <li className="text-xl my-4 pl-3 text-white md:mx-5"><Link href='/about'>About</Link></li>
             <li className="text-xl my-4 pl-3 text-white md:mx-5"><Link href='/contact'>Contact</Link></li>
@@ -87,7 +95,6 @@ const Navbar = () => {
               :
             <li onClick={logout} className="text-xl my-4 pl-3 cursor-pointer hover:bg-blue-700 text-white md:mx-5"><span>Logout</span></li>
             }
-        </ul>
         <ToastContainer 
         position="bottom-left"
         autoClose={5000}
@@ -100,6 +107,7 @@ const Navbar = () => {
         pauseOnHover={false}
         theme="dark"
         />
+        </ul>
     </nav>
   )
 }

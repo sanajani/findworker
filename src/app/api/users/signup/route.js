@@ -6,7 +6,9 @@ import bcryptjs from 'bcryptjs';
 
 export const POST = async (request) => {
     connectDB()
-
+    let userID = await UserModel.count() + 1;
+    userID = userID + ''
+    console.log('signup pagr',typeof(userID));
     const {name,lastName, username,password, job, experiance, firstPhoneNumber,secondNumber, profile, province, aboutuser} = await request.json();
 
     // if missed field then send an error experiance
@@ -28,7 +30,8 @@ export const POST = async (request) => {
         phoneNumber2: secondNumber,
         profileImage: profile,
         province,
-        personalInfo: aboutuser
+        personalInfo: aboutuser,
+        id: userID
     })
     await newUser.save();
     return NextResponse.json({message: "User successfully inseted", user: newUser}, {status: 201})

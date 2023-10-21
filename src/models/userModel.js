@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { number } from "yup";
 
 const userSchema = mongoose.Schema({
     name:{
@@ -45,6 +46,9 @@ const userSchema = mongoose.Schema({
     personalInfo:{
         type: String,
         required: [true, "PersonalInformation is Required"],
+    },
+    id:{
+        type: String
     }
 })
 

@@ -1,20 +1,19 @@
 "use client"
-import React from 'react'
-import tabledata from './mock_data.json'
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import Link from 'next/link'
+// import tabledata from './mock_data.json';
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import Link from 'next/link';
+import useSWR from 'swr'
+import { fetcher } from '@/helper/fetcher';
 
 const columnHelper = createColumnHelper()
 
 const columns = [
-    columnHelper.accessor("location", {
+    columnHelper.accessor("province", {
         header: "موقعیت"
     }),
     columnHelper.accessor("job", {
         header: "وظیفه"
     }),
-
-    
     columnHelper.accessor("username", {
         header: "نام خاص"
     }),
@@ -26,12 +25,21 @@ const columns = [
     }),
 ]
 
+
 const HomePageTable = () => {
+    const { data, error, isLoading } = useSWR('/api/allUsers',fetcher)
+
     const table = useReactTable({
-        data: tabledata,
+        data: data?.user,
         columns,
         getCoreRowModel: getCoreRowModel()
     })
+
+    if(error){
+        return <p>{error.message}</p>
+    }
+
+    if(isLoading) return <h1 className='bg-blue-500 text-white h-full flex justify-center items-center text-4xl '>Loading...</h1>
 
     return (
         <div>
@@ -57,8 +65,8 @@ const HomePageTable = () => {
                                 return <tr key={row.id}>
                                     {
                                         row.getVisibleCells().map((tableRowData) => {
-                                            return <td key={tableRowData.id} className='whitespace-nowrap p-2 text-center border border-white bg-blue-700'>{
-                                                tableRowData.column.id === 'username' ? <Link href='/profile/userProfile' className='inline-block w-full h-full'>{flexRender(tableRowData.column.columnDef.cell, tableRowData.getContext())}</Link> : flexRender(tableRowData.column.columnDef.cell, tableRowData.getContext())
+                                            return <td key={tableRowData.id} className='whitespace-nowrap p-2 text-center border border-white md:text-lg text-base bg-blue-700'>{
+                                                tableRowData.column.id === 'username' ? <Link href={`/profile/${tableRowData.getValue(tableRowData.id)}`} className='inline-block w-full h-full'>{flexRender(tableRowData.column.columnDef.cell, tableRowData.getContext())}</Link> : flexRender(tableRowData.column.columnDef.cell, tableRowData.getContext())
                                             }</td>
                                         })
                                     }

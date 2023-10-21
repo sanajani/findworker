@@ -1,8 +1,20 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
 import AboutUser from '../../../components/AboutUser'
+import useSWR from 'swr'
+import { fetcher } from '@/helper/fetcher'
+import { useParams } from 'next/navigation'
+
+// http://localhost:3000/api/allUsers/username
 
 const Profile = () => {
+    const {username} = useParams()
+    const {data, isLoading, error} = useSWR(`/api/allUsers/${username}`,fetcher)
+
+    if(isLoading) return <h1>Loading...</h1>
+
+
     return (
         <main className='min-h-screen pt-24 w-full md:max-w-[1200px] mx-auto border-2'>
             <div className='flex items-center flex-col md:flex-row'>
@@ -11,7 +23,7 @@ const Profile = () => {
                         <Image
                             placeholder="blur"
                             blurDataURL={'/profile.jpg'}
-                            src='/profile.jpg'
+                            src='/profile.png'
                             alt='userProfile'
                             fill={true}
                             className='rounded-full overflow-hidden absolute object-cover'
@@ -35,15 +47,15 @@ const Profile = () => {
                         </thead>
                         <tbody className='bg-gray-300 font-persionFont'>
                             <tr>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>سال 4</td>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>0705669499</td>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>0797099060</td>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>sanajani</td>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>برنامه نویس</td>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>هرات</td>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>مبینی</td>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>ثناوالله</td>
-                                <td className='py-2 px-4 text-center whitespace-nowrap'>1</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.experiance}</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.phoneNumber2}</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.phoneNumber1}</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.username}</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.job}</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.province}</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.lastName}</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.name}</td>
+                                <td className='py-2 px-4 text-center whitespace-nowrap'>{data?.id}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -51,22 +63,22 @@ const Profile = () => {
                 <div className='grid grid-cols-1 md:hidden my-3 w-[90%] mx-auto'>
                     <div className='bg-gray-200 p-4 rounded-lg shadow '>
                         <div className='flex items-center space-x-2 text-sm flex-col font-medium'>
-                            <div className='text-2xl my-2'>سال 4</div>
-                            <div className='text-xl my-2'>0705669499</div>
-                            <div className='text-xl my-2'>0797099060</div>
-                            <div className='text-xl my-2'>sanajani</div>
-                            <div className='text-2xl my-2'>برنامه نویس</div>
-                            <div className='text-2xl'>هرات</div>
-                            <div className='text-2xl my-2'>مبینی</div>
-                            <div className='text-2xl my-2'>ثناوالله</div>
-                            <div className='text-xl my-2'>1</div>
+                            <div className='text-2xl my-2'>{data?.experiance}</div>
+                            <div className='text-xl my-2'>{data?.phoneNumber2}</div>
+                            <div className='text-xl my-2'>{data?.phoneNumber1}</div>
+                            <div className='text-xl my-2'>{data?.username}</div>
+                            <div className='text-2xl my-2'>{data?.job}</div>
+                            <div className='text-2xl my-2'>{data?.province}</div>
+                            <div className='text-2xl my-2'>{data?.lastName}</div>
+                            <div className='text-2xl my-2'>{data?.name}</div>
+                            <div className='text-xl my-2'>{data?.id}</div>
                         </div>
                     </div>
                 </div>
             </div>
             {/* about that user */}
             <div>
-                <AboutUser />
+                <AboutUser name={data?.name} personalInfo={data?.personalInfo} />
             </div>
 
             {/* projects section */}
