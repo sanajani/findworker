@@ -6,6 +6,7 @@ import useSWR from 'swr'
 import { fetcher } from '@/helper/fetcher'
 import { useParams } from 'next/navigation'
 
+
 // http://localhost:3000/api/allUsers/username
 
 const Profile = () => {
@@ -19,11 +20,12 @@ const Profile = () => {
         <main className='min-h-screen pt-24 w-full md:max-w-[1200px] mx-auto border-2'>
             <div className='flex items-center flex-col md:flex-row'>
                 <div className=''>
-                    <div className='bg-red-400 rounded-full relative md:h-56 md:w-56 h-28 w-28'>
+                    <div className='rounded-full relative md:h-56 md:w-56 h-28 w-28'>
+                        {console.log(data?.profileImage)}
                         <Image
                             placeholder="blur"
-                            blurDataURL={'/profile.jpg'}
-                            src='/profile.png'
+                            blurDataURL={'/profiledefalt.png'}
+                            src={!data?.profileImage ? '/profiledefalt.png' : data?.profileImage}
                             alt='userProfile'
                             fill={true}
                             className='rounded-full overflow-hidden absolute object-cover'
@@ -79,57 +81,6 @@ const Profile = () => {
             {/* about that user */}
             <div>
                 <AboutUser name={data?.name} personalInfo={data?.personalInfo} />
-            </div>
-
-            {/* projects section */}
-            <div className='my-8 shadow-lg bg-gray-300'>
-                <h1 className='text-2xl px-12 pt-6 font-bold text-right font-persionFont'>پروژه های آخری من</h1>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:p-4 md:pr-12 md:gap-6 gap-1'>
-                    <div className='bg-white w-[90%] mx-auto md:m-10 p-4 shadow-xl rounded-md my-5 sm:my-0'>
-                        <div className='relative w-full h-96'>
-                            <Image 
-                            src='/five.jpg'
-                            alt='project number one'
-                            fill={true}
-                            className='object-cover'
-                            placeholder="blur"
-                            blurDataURL={'/five.jpg'}
-                            />
-                        </div>
-                        <h1 className='font-semibold text-lg md:text-xl capitalize my-2 text-right font-persionFont'>نام پروژه</h1>
-                        <p className='text-right text-lg md:text-xl font-persionFont'>درمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات </p>
-                    </div>
-
-                    <div className='bg-white w-[90%] mx-auto md:m-10 p-4 shadow-xl rounded-md my-5 sm:my-0'>
-                        <div className='relative w-full h-96'>
-                            <Image 
-                            src='/two.jpg'
-                            alt='project number one'
-                            fill={true}
-                            className='object-cover'
-                            placeholder='blur'
-                            blurDataURL='/two.jpg'
-                            />
-                        </div>
-                        <h1 className='font-semibold text-lg md:text-xl capitalize my-2 text-right font-persionFont'>نام پروژه</h1>
-                        <p className='text-right text-lg md:text-xl font-persionFont'>درمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات </p>
-                    </div>
-
-                    <div className='bg-white w-[90%] mx-auto md:m-10 p-4 shadow-xl rounded-md my-5 sm:my-0'>
-                        <div className='relative w-full h-96'>
-                            <Image 
-                            src='/nine.jpg'
-                            alt='project number one'
-                            fill={true}
-                            className='object-cover'
-                            placeholder='blur'
-                            blurDataURL='/nine.jgp'
-                            />
-                        </div>
-                        <h1 className='font-semibold text-lg md:text-xl capitalize my-2 text-right font-persionFont'>نام پروژه</h1>
-                        <p className='text-right text-lg md:text-xl font-persionFont'>درمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات رمورد پروژه کمی معلومات </p>
-                    </div>
-                </div>
             </div>
         </main>
     )
