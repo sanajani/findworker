@@ -32,8 +32,7 @@ const ClientLoginForm = () => {
                     theme: "dark",
                   })
         } catch (error) {
-            console.log(error);
-            toast.error(error.message || 'Something went wrong in Login Process',{
+            toast.error(error?.response?.data?.message || 'Something went wrong in Login Process',{
                 position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,

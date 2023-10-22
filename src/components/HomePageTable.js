@@ -1,5 +1,4 @@
 "use client"
-// import tabledata from './mock_data.json';
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import Link from 'next/link';
 import useSWR from 'swr'
@@ -26,14 +25,16 @@ const columns = [
 ]
 
 
-const HomePageTable = () => {
-    const { data, error, isLoading } = useSWR('/api/allUsers',fetcher)
-
+const HomePageTable = ({url}) => {
+    const { data, error, isLoading } = useSWR(url,fetcher)
+    
     const table = useReactTable({
         data: data?.user,
         columns,
         getCoreRowModel: getCoreRowModel()
     })
+    console.log('data obj',data);
+    if(data == [] || data === undefined) return <h1 className='bg-blue-500 text-white h-full flex justify-center items-center text-4xl '>No Result...</h1>
 
     if(error){
         return <p>{error.message}</p>
@@ -61,7 +62,7 @@ const HomePageTable = () => {
                     </thead>
                     <tbody>
                         {
-                            table.getRowModel().rows.map((row) => {
+                            table?.getRowModel().rows?.map((row) => {
                                 return <tr key={row.id}>
                                     {
                                         row.getVisibleCells().map((tableRowData) => {

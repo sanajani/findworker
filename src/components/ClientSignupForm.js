@@ -21,6 +21,7 @@ const ClientSignupForm = () => {
     const dispatch = useDispatch()
     const storage = getStorage(app)
     const router = useRouter()
+    const [errorMessage, setErrorMessage] = useState('')
 
     // upload image url to backend
     const signupFormSubmit = async (values) => {
@@ -49,8 +50,8 @@ const ClientSignupForm = () => {
                 theme: "dark",
             })
         } catch (error) {
-            console.log('this is error::::: ',error);
-            toast.error(error.message||'something went wrong signup page',{
+            setErrorMessage(error?.response)
+            toast.error(error?.response?.data?.message || 'Something went wrong in Login Process',{
                 position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -65,6 +66,7 @@ const ClientSignupForm = () => {
             dispatch(isLoadingTrue())
         }
     }
+    console.log('this is error::::: ',errorMessage);
     return (
             <Formik initialValues={initialValues} onSubmit={signupFormSubmit} validationSchema={signupSchema}>
                 <Form className='py-2' autoComplete='off'>

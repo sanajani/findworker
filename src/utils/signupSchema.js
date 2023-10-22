@@ -2,32 +2,37 @@ import * as Yup from 'yup'
 
 export const signupSchema = Yup.object({
     name: Yup.string()
+        .transform(value => value?.toLowerCase().trim())
         .min(2, 'باید حروف نام شما بیشتر از دو حرف باشد')
         .max(25, 'باید حروف نام شما کمتر از ۲۵ حرف باشد')
         .required("نام الزامی است"),
     lastName: Yup.string()
+    .transform(value => value?.toLowerCase().trim())
         .min(2, 'باید حروف تخلص شما بیشتر از دو حرف باشد')
         .max(25, 'باید حروف تخلص شما کمتر از ۲۵ حرف باشد')
         .required("تخلص الزامی است"),
     username: Yup.string()
+    .transform(value => value?.toLowerCase().trim())
+
         .min(2, 'باید حروف نام خاص شما بیشتر از دو حرف باشد')
         .max(25, 'باید حروف نام خاص شما کمتر از ۲۵ حرف باشد')
         .required("نام خاص الزامی است"),
     password: Yup.string()
+    .transform(value => value?.toLowerCase().trim())
         .min(3, 'باید حداقل بیشتر از دو حرف باشد رمز شما')
         .max(25, 'باید رمز شما کمتر از ۲۵ حرف باشد')
         .required("رمز الزامی است"),
     job: Yup.string()
         .required("ذکر کردن نوغ وظیفه الزامی است"),
     experiance: Yup.string(),
-
     firstPhoneNumber: Yup.string()
+    .transform(value => value?.trim())
     .required("شماره تماس 1 الزامی است")
     .matches(/^[0-9]+$/, "باید دقیقا ده نمبر باشد")
     .min(10, 'باید دقیقا ده نمبر باشد')
     .max(10, 'باید دقیقا ده نمبر باشد'),
-
     secondNumber: Yup.string()
+    .transform(value => value?.trim())
     .required("شماره تماس 2 الزامی است")
     .matches(/^[0-9]+$/, "باید دقیقا ده نمبر باشد")
     .min(10, 'باید دقیقا ده نمبر باشد')

@@ -15,6 +15,12 @@ export const POST = async (request) => {
     if (!name || !lastName || !username || !password || !job || !experiance || !firstPhoneNumber || !secondNumber || !profile || !province || !aboutuser) return NextResponse.json({message: "لطفا خانه های خالی را پور کنید"},{status: 401})
 
     try {
+    const isUsername = await UserModel.findOne({username: username})
+    if(isUsername) return NextResponse.json({message:"Username already exist"}, {status:402})
+    const isPhoneNumberOne = await UserModel.findOne({phoneNumber1: firstPhoneNumber})
+    if(isPhoneNumberOne) return NextResponse.json({message:"Phone Number 1 already exist"}, {status:402})
+    const isPhoneNumber2 = await UserModel.findOne({phoneNumber2: secondNumber})
+    if(isPhoneNumber2) return NextResponse.json({message:"Phone Number 2 already exist"}, {status:402})
     // hash the password
     const hashPassword = await bcryptjs.hash(password, 12)
     

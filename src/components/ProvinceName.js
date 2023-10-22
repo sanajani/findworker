@@ -2,7 +2,7 @@
 
 export const list_of_districts = [
   {
-    label:'...',
+    label:'',
     value: '...'
   },
   {

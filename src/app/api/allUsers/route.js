@@ -8,7 +8,7 @@ export const GET = async () => {
         // const userID = await UserModel.countDocuments()
         const user = await UserModel.find();
         // console.log(user);
-        return NextResponse.json({message: "Success", success: true, user}, {status: 200, statusText: 'ok'})
+        return NextResponse.json({user}, {status: 200, statusText: 'ok'})
     } catch (error) {
         console.log(error);
         return NextResponse.json({message: "Something went wrong", error: error.message},{status:500, statusText:'failed to get users'})
