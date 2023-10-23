@@ -12,12 +12,10 @@ export async function GET(request){
         if(job){
             const user = await UserModel.find({job:job})
             if(!user.length) return NextResponse.json({message:"No result"},{status:400})
-            console.log('no length',user.length);
             return NextResponse.json({user,message:"Success"},{status:200})
         }else if(province){
             const user = await UserModel.find({province:province})
             if(!user.length) return NextResponse.json({message:"No result"},{status:400})
-            console.log('no length',user.length);
             return NextResponse.json({user,message:"Success"},{status:200})
         }
         return NextResponse.json({user:user},{status:500})
