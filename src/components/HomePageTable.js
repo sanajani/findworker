@@ -27,14 +27,17 @@ const columns = [
 
 const HomePageTable = ({url}) => {
     const { data, error, isLoading } = useSWR(url,fetcher)
+    // data &&  data
+    // {user: Array(6), totalPages: 1, currentPage: 1}
     
     const table = useReactTable({
         data: data?.user,
         columns,
         getCoreRowModel: getCoreRowModel()
     })
-    console.log('data obj',data);
-    if(data == [] || data === undefined) return <h1 className='bg-blue-500 text-white h-full flex justify-center items-center text-4xl '>No Result...</h1>
+    if(!data) return <h1 className='bg-blue-500 text-white h-full flex justify-center items-center text-4xl '>No Result...</h1>
+    const {totalPages = 10 ,currentPage = 1} = data
+    console.log("HomePageTable data line 30",totalPages, currentPage)
 
     if(error){
         return <p>{error.message}</p>
@@ -80,7 +83,7 @@ const HomePageTable = ({url}) => {
             </div>
             <div className='flex justify-between m-4 font-persionFont'>
                 <button className='bg-blue-500 text-white w-fit md:px-10 px-7 py-2 text-sm md:text-xl rounded-md font-bold'>قبلی</button>
-                <p className='md:text-xl'>صفحه 1 از 50</p>
+                <p className='md:text-xl '><span className='mx-2'>{totalPages}</span> صفحه <span className='mx-2'>{currentPage}</span> از</p>
                 <button className='bg-blue-500 text-white w-fit md:px-10 px-7 py-2 text-sm md:text-xl rounded-md font-bold'>بعدی</button>
             </div>
         </div>

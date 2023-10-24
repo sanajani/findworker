@@ -9,6 +9,7 @@ import React from 'react'
 const Search = () => {
 
   const searchParams = useSearchParams()
+  // console.log('this is your searchParams', searchParams);
   const jobsearchparam = searchParams.get('job') 
   const provinceSearchParam = searchParams.get('province')
 
@@ -18,7 +19,8 @@ const Search = () => {
         <SearchTable />
       </div>
       <div className='md:col-span-2 md:w-full'>
-        <HomePageTable url={jobsearchparam ? `/api/search?job=${jobsearchparam}` : `/api/search?province=${provinceSearchParam}`} />
+        {/* <HomePageTable url={jobsearchparam ? `/api/search?job=${jobsearchparam}` : `/api/search?province=${provinceSearchParam}`} /> */}
+        <HomePageTable url={`/api/search?job=${jobsearchparam}&province=${provinceSearchParam}`} />
       </div>
     </main>
   )

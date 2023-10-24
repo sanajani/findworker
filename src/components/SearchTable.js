@@ -1,19 +1,37 @@
 'use client'
-import React,{useState, useEffect} from 'react'
+import React,{useCallback, useState} from 'react'
 import { list_of_districts } from './ProvinceName'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Button from './Button'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 const SearchTable = () => {
+    const pathname = usePathname();
+    const searchParams = useSearchParams()
     const router = useRouter()
     const [query,setQuery ] = useState('');
     const [provinceNameState,setProvinceNameState] = useState()
+    console.log('first state',provinceNameState);
+
+    const createQueryString = useCallback(
+    (job,jobValue,province,provinceValue) => {
+        const params = new URLSearchParams(searchParams)
+        params.set(job,jobValue)
+        params.set(province,provinceValue)
+        return params.toString()
+    },[searchParams])
 
     const searchUserByJob = () => {
-        router.push(`/search?job=${query}`)
+        // router.push(`/search?job=${query}`)
+        // router.push(`/search?${createQueryString('job',query)}`)
+        router.push(`/search?${createQueryString("province",provinceNameState,'job',query)}`)
     }
     const searchUserByProvince = () => {
-        router.push(`/search?province=${provinceNameState}`)
+        console.log('function state',provinceNameState);
+        if(provinceNameState){
+            router.push(`/search?${createQueryString("province",provinceNameState,'job',query)}`)
+        }
     }
 
     return (
@@ -36,10 +54,6 @@ const SearchTable = () => {
                         placeholder='دنبال چی میگردین؟؟'
                     />
                 </div>
-                {/* <button onClick={searchUserByJob} 
-                className='bg-blue-700 w-fit m-3 px-7 py-2 text-sm md:text-lg text-white rounded-md ml-5 md:ml-3'>
-                    Search
-                </button> */}
                 <Button text='Search' handler={searchUserByJob} style='bg-blue-700 w-fit m-3 px-7 py-2 text-sm md:text-lg text-white rounded-md ml-5 md:ml-3'/>
             </div>
 
@@ -59,7 +73,7 @@ const SearchTable = () => {
                         id='selectlocation'
                         className='border-2 outline-none mx-3 text-lg md:text-xl text-center'
                         onChange={event => setProvinceNameState(event.target.value)}
-                        // onClick={searchUserByProvince}
+                        onClick={searchUserByProvince}
                     >
                         {list_of_districts.map(item => {
                             return (
@@ -70,7 +84,10 @@ const SearchTable = () => {
                             )
                         })}
                     </select>
-                    <Button text='Search By Province' handler={searchUserByProvince} style={'bg-blue-700 w-fit m-3 px-7 py-2 text-sm md:text-lg text-white rounded-md ml-5 md:ml-3'}/>
+                    {/* <div>
+                    <Button text='Search By Province' handler={searchUserByProvince} style='bg-blue-700 w-fit m-3 px-7 py-2 text-sm md:text-lg text-white rounded-md ml-5 md:ml-3'/>
+                </div> */}
+                {pathname === '/search' && <Link href='/' className='mt-4 bg-blue-700 w-fit m-3 px-7 py-2 text-sm md:text-lg text-white rounded-md ml-5 md:ml-3'>Home</Link>}
                 </div>
 
             </div>
