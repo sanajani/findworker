@@ -75,3 +75,29 @@ export const loginSchema = Yup.object({
         .min(5, 'باید حداقل بیشتر از دو حرف باشد رمز شما')
         .max(14, 'باید رمز شما کمتر از ۲۵ حرف باشد')
         .required("رمز الزامی است"),})
+
+        // import { useEffect } from 'react';
+        // import { useRouter } from 'next/router';
+        // const MyComponent = () => {
+        //   const router = useRouter();
+        
+        //   useEffect(() => {
+        //     const updateURL = () => {
+        //       // Retrieve current URL
+        //       const { pathname, query } = router;
+        //       // Create a new URLSearchParams object from the existing query
+        //       const queryParams = new URLSearchParams(query);
+        //       // Append or update the query parameter you want
+        //       queryParams.set('myParam', 'myValue');
+        //       // Update the URL with the new query parameters
+        //       const newUrl = `${pathname}?${queryParams.toString()}`;
+        //       router.push(newUrl);
+        //     };
+        //     updateURL();
+        //   }, []);
+        //   return (
+        //     /* your component JSX */
+        //   );
+        // };
+        
+        // export default MyComponent;

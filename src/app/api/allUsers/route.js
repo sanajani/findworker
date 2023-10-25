@@ -5,7 +5,7 @@ import connectDB from "@/db/connection";
 export const GET = async (request) => {
     const {searchParams} = new URL(request.url)
     let page = parseInt(searchParams.get('page')) || 1
-    let limit = parseInt(searchParams.get('limit')) || 10
+    let limit = parseInt(searchParams.get('limit')) || 2
     console.log(`this is Page:${page} this is Limit:${limit}`);
 
     connectDB()

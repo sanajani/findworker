@@ -12,6 +12,8 @@ const Search = () => {
   // console.log('this is your searchParams', searchParams);
   const jobsearchparam = searchParams.get('job') 
   const provinceSearchParam = searchParams.get('province')
+  const pageSearchParams = searchParams.get('page')
+  // const limitSearchParams = searchParams.get('limit')
 
   return (
     <main className="min-h-screen pt-24 grid grid-cols-1 md:grid-cols-3 md:px-4">
@@ -20,7 +22,7 @@ const Search = () => {
       </div>
       <div className='md:col-span-2 md:w-full'>
         {/* <HomePageTable url={jobsearchparam ? `/api/search?job=${jobsearchparam}` : `/api/search?province=${provinceSearchParam}`} /> */}
-        <HomePageTable url={`/api/search?job=${jobsearchparam}&province=${provinceSearchParam}`} />
+        <HomePageTable url={`/api/search?job=${jobsearchparam}&province=${provinceSearchParam}&page=${pageSearchParams}`} />
       </div>
     </main>
   )
